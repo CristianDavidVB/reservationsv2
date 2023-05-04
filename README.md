@@ -55,7 +55,7 @@ https://www.youtube.com/watch?v=Q74nxFBCHCI
 
 [docker](https://www.docker.com/) you must modify the words between <>
 ```shell
-docker run -- <here is the container name>  -e POSTGRES_PASSWORD=<YOUR PASSWORD> -p <other number>:5432 -d postgres:14
+docker run --name <here is the container name>  -e POSTGRES_PASSWORD=<YOUR PASSWORD> -p <other number>:5432 -d postgres:14
 ```
 ### Initialize the database
 ```shell
