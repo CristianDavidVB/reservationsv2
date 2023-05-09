@@ -4,7 +4,7 @@ module ControllerSpecHelper
   end
 
   def expired_token_generator(user_id)
-    JsonWebToken.encode({ user_id: user.id } , (Time.current.to_i - 10))
+    JsonWebToken.encode({ user_id: user.id } , (Time.current.to_i + 5.minute))
   end
 
   def valid_headers
