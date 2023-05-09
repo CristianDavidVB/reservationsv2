@@ -5,6 +5,18 @@ on: [push, pull_request]
 jobs:
   rspec:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres-12-alpine
+        ports:
+          "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/rails_test"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -18,7 +30,7 @@ jobs:
         run: bundle install
 
       - name: Setup database
-        run: bundle exec rails db:create db:schema:load RAILS_ENV=test
+        run: bundle exec rails db:schema:load
 
       - name: Run Rspec
         run: bundle exec rspec
