@@ -1,5 +1,5 @@
 class JsonWebToken
-  SECRET = Rails.application.secrets.secret_key_base
+  SECRET = "3528162761a"
 
   def self.encode(payload, exp = 1.day.from_now)
     payload[:exp] = exp.to_i
