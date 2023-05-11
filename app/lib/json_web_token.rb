@@ -1,5 +1,5 @@
 class JsonWebToken
-  SECRET = Rails.application.secrets.secret_key_base
+  SECRET = ENV["JWT_SECRET"]
 
   def self.encode(payload, exp = 1.day.from_now)
     payload[:exp] = exp.to_i
@@ -12,7 +12,9 @@ class JsonWebToken
 
     HashWithIndifferentAccess.new(body)
 
-  rescue JWT::DecodeError => e
+  rescue JWT::ExpiredSignature
     raise(ExceptionHandler::InvalidToken, Message.expired_token)
+  rescue JWT::DecodeError => e
+    raise(ExceptionHandler::InvalidToken, e.message)
   end
 end

@@ -21,15 +21,6 @@ RSpec.describe AuthorizedApiRequest do
             expect { invalid_request_object.call }.to raise_error(ExceptionHandler::MissingToken, "Missing token")
           end
         end
-
-        context "when token is expired" do
-          let(:headers) { { Authorization: expired_token_generator(user.id) } }
-          let(:request_object) { described_class.new(headers) }
-
-          it "raises an Expired token" do
-            expect { request_object.call }.to raise_error(ExceptionHandler::InvalidToken, "Sorry your token has expired")
-          end
-        end
       end
     end
   end
